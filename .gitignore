@@ -28,6 +28,7 @@ pnpm-debug.log*
 # OS related
 .DS_Store
 Thumbs.db
+.vercel
 
 # Temporary files
 tmp/
