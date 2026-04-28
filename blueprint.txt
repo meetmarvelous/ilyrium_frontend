@@ -1,0 +1,32 @@
+Ilyrium Product Blueprint
+We are building a customer-facing platform for Solana RPC infrastructure.
+The first priority is:
+● view available RPC plans
+● choose and purchase a plan
+● create and manage API keys
+● see their active subscription
+● view basic usage and limits
+● access their endpoint(s)
+● manage billing/account settings
+On the backend, the system should support:
+● user authentication
+● plan management
+● subscriptions / payments
+● API key generation
+● customer-to-plan assignment
+● usage tracking and limit enforcement
+● RPC request routing to providers
+● basic reliability / failover logic
+The MVP should focus on simplicity, clarity, and a smooth customer experience.
+We do not need overengineered internal tooling in the first version.
+The goal is to let customers easily buy access, receive credentials, and start using Ilyrium
+quickly.
+I would like you to propose the best architecture for this product, including:
+● frontend structure
+● backend architecture
+● database design
+● payment flow
+● API key system
+● routing logic at MVP level
+● recommended tech stack
+We can refine the exact scope feature by feature, but this is the initial direction.
