@@ -1,6 +1,5 @@
 {
   "buildCommand": "pnpm build",
   "installCommand": "pnpm install",
-  "framework": "nextjs",
-  "rootDirectory": "ilyrium-dashboard"
+  "framework": "nextjs"
 }
