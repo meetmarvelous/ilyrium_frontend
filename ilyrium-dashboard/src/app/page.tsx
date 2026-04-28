@@ -13,7 +13,8 @@ import {
   ChevronRight,
   Database,
   ExternalLink,
-  CheckCircle2
+  CheckCircle2,
+  Menu
 } from "lucide-react";
 import Logo from "@/components/layout/Logo";
 import { useEffect, useState } from "react";
@@ -36,10 +37,67 @@ export default function LandingPage() {
 
   const partners = ["SOLANA", "PYTH", "JUPITER", "DRIFT", "MARGINFI", "KAMINO", "PHANTOM", "HELIUM", "METAPLEX", "HNT", "BONK", "WIF"];
 
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-white relative overflow-hidden font-body selection:bg-primary/10">
-      {/* Hero Section - Reduced Height & Spacing */}
+      {/* Refined Mobile Menu Overlay */}
+      <div className={`fixed inset-0 z-[100] transition-all duration-500 md:hidden ${isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+        <div className="absolute inset-0 bg-white/98 backdrop-blur-xl" />
+        
+        <div className="relative h-full flex flex-col p-8">
+          <div className="flex justify-between items-center mb-12">
+            <Logo className="w-7 h-7" />
+            <button 
+              onClick={() => setIsMobileMenuOpen(false)} 
+              className="p-2 text-text-main hover:text-primary transition-colors"
+            >
+              <div className="w-8 h-8 flex flex-col items-center justify-center gap-1.5">
+                 <div className="w-6 h-[2px] bg-current rotate-45 translate-y-[4px]" />
+                 <div className="w-6 h-[2px] bg-current -rotate-45 -translate-y-[4px]" />
+              </div>
+            </button>
+          </div>
+
+          <div className="flex flex-col space-y-8">
+            {[
+              { label: "Solutions", href: "#solutions" },
+              { label: "Infrastructure", href: "#network" },
+              { label: "Comparison", href: "#comparison" },
+            ].map((link) => (
+              <Link 
+                key={link.label}
+                href={link.href} 
+                onClick={() => setIsMobileMenuOpen(false)} 
+                className="flex items-center justify-between group py-2"
+              >
+                <span className="text-xl font-bold tracking-tight text-text-main group-hover:text-primary transition-colors">
+                  {link.label}
+                </span>
+                <ChevronRight size={18} className="text-text-muted opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
+              </Link>
+            ))}
+          </div>
+
+          <div className="mt-auto pt-10 border-t border-border/50">
+            <Link 
+              href="/dashboard" 
+              className="flex items-center justify-center gap-2 w-full py-4 rounded-2xl bg-text-main text-white font-bold tracking-tight text-sm mb-6"
+            >
+              Launch Dashboard
+              <ArrowRight size={16} />
+            </Link>
+            <div className="flex justify-center gap-8 text-[10px] mono text-text-muted font-bold tracking-[0.2em] uppercase opacity-50">
+               <Link href="#">Twitter</Link>
+               <Link href="#">Discord</Link>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Hero Section */}
       <section className="relative min-h-[85vh] flex flex-col items-center justify-center pt-16 px-6 overflow-hidden">
+        {/* ... (background remains same) */}
         <div className="absolute inset-0 z-0">
           <video 
             autoPlay 
@@ -57,6 +115,8 @@ export default function LandingPage() {
         <nav className="absolute top-0 left-0 right-0 h-20 z-50">
            <div className="max-w-6xl mx-auto px-6 h-full flex items-center justify-between">
               <Logo className="w-7 h-7" />
+              
+              {/* Desktop Nav */}
               <div className="hidden md:flex items-center gap-10 text-[11px] font-black text-text-muted uppercase tracking-[0.2em]">
                 <Link href="#solutions" className="hover:text-primary transition-colors">Solutions</Link>
                 <Link href="#network" className="hover:text-primary transition-colors">Infrastructure</Link>
@@ -65,6 +125,14 @@ export default function LandingPage() {
                   Dashboard
                 </Link>
               </div>
+
+              {/* Mobile Hamburger */}
+              <button 
+                onClick={() => setIsMobileMenuOpen(true)}
+                className="md:hidden p-2 text-text-muted hover:text-primary transition-colors"
+              >
+                <Menu size={24} />
+              </button>
            </div>
         </nav>
 
