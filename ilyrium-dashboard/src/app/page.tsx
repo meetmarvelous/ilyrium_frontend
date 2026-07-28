@@ -10,11 +10,9 @@ import {
   CheckCircle2,
   Menu,
   X,
-  Server,
-  Layers,
-  Cpu,
 } from "lucide-react";
 import { useEffect, useState } from "react";
+import Logo from "@/components/layout/Logo";
 
 export default function LandingPage() {
   const [liveLog, setLiveLog] = useState<
@@ -65,9 +63,7 @@ export default function LandingPage() {
 
         <div className="relative h-full flex flex-col p-8">
           <div className="flex justify-between items-center mb-12 border-b border-border pb-6">
-            <h1 className="font-heading font-black text-2xl tracking-tighter text-text-main">
-              ILYRIUM
-            </h1>
+            <Logo className="w-8 h-8" showText={true} />
             <button
               onClick={() => setIsMobileMenuOpen(false)}
               className="p-2 text-text-muted hover:text-text-main transition-colors"
@@ -114,8 +110,8 @@ export default function LandingPage() {
       {/* Header Navigation */}
       <nav className="fixed top-0 left-0 right-0 h-20 z-50 bg-background/80 backdrop-blur-md border-b border-border">
         <div className="max-w-6xl mx-auto px-6 h-full flex items-center justify-between">
-          <Link href="/" className="font-heading font-black text-2xl tracking-tighter text-text-main">
-            ILYRIUM
+          <Link href="/">
+            <Logo className="w-8 h-8" showText={true} />
           </Link>
 
           {/* Desktop Nav */}
@@ -147,10 +143,27 @@ export default function LandingPage() {
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex flex-col items-center justify-center pt-28 px-6 overflow-hidden">
+      {/* Hero Section with Live Background Animation */}
+      <section className="relative min-h-[92vh] flex flex-col items-center justify-center pt-28 px-6 overflow-hidden">
+        {/* Background Live Video Animation */}
+        <div className="absolute inset-0 z-0">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover opacity-[0.25] scale-105"
+          >
+            <source
+              src="https://firebasestorage.googleapis.com/v0/b/udreamms-platform-1.firebasestorage.app/o/New%20Video%20Luxor.mp4?alt=media&token=a5cd5a16-be9f-43df-bd1e-e702012fa88d"
+              type="video/mp4"
+            />
+          </video>
+          <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/80 to-background" />
+        </div>
+
         {/* Background Ambient Glow */}
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[140px] pointer-events-none" />
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/15 rounded-full blur-[140px] pointer-events-none" />
 
         <div className="max-w-4xl mx-auto text-center relative z-10 space-y-8">
           <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-surface border border-border">
@@ -179,7 +192,7 @@ export default function LandingPage() {
               href="/dashboard"
               className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold py-4 px-8 rounded-xl shadow-[0_0_30px_rgba(79,70,229,0.4)] transition-all text-sm group"
             >
-              Get Your Free API Key
+              Start Building
               <ArrowRight
                 size={18}
                 className="group-hover:translate-x-1 transition-transform"
@@ -198,9 +211,9 @@ export default function LandingPage() {
             {liveLog.map((log) => (
               <div
                 key={log.id}
-                className="flex items-center gap-2 bg-surface/50 border border-border px-3 py-1.5 rounded-lg text-xs font-mono"
+                className="flex items-center gap-2 bg-surface/80 backdrop-blur-md border border-border px-3.5 py-2 rounded-xl text-xs font-mono"
               >
-                <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                 <span className="text-text-muted">{log.region}</span>
                 <span className="text-primary font-bold">{log.provider}</span>
                 <span className="text-emerald-400 font-semibold">
@@ -221,7 +234,7 @@ export default function LandingPage() {
         </div>
       </div>
 
-      {/* Core Features */}
+      {/* Core Features Section with Secondary Media */}
       <section id="features" className="py-24 max-w-6xl mx-auto px-6 space-y-16">
         <div className="text-center max-w-2xl mx-auto space-y-4">
           <p className="text-xs font-mono text-primary font-bold uppercase tracking-wider">
@@ -269,6 +282,34 @@ export default function LandingPage() {
             </h3>
             <p className="text-text-muted text-sm leading-relaxed">
               No credit cards or KYC required. Upgrade your request limits directly on-chain using native SOL transfers verified automatically by our backend.
+            </p>
+          </div>
+        </div>
+
+        {/* Feature Media Banner */}
+        <div className="relative rounded-3xl overflow-hidden border border-border h-80 flex items-center justify-center">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover opacity-40"
+          >
+            <source
+              src="https://firebasestorage.googleapis.com/v0/b/udreamms-platform-1.firebasestorage.app/o/Video%20Preventa.mp4?alt=media&token=96330534-69e6-47e3-8359-444f9c1f85a5"
+              type="video/mp4"
+            />
+          </video>
+          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-background" />
+          <div className="relative z-10 text-center max-w-lg px-6">
+            <p className="text-xs font-mono text-primary font-bold uppercase tracking-wider mb-2">
+              Real-Time Global Network
+            </p>
+            <h3 className="text-2xl font-heading font-bold text-text-main mb-2">
+              Global Pulse Analytics Engine
+            </h3>
+            <p className="text-text-muted text-sm">
+              Continuous latency benchmarking across all major regional RPC clusters.
             </p>
           </div>
         </div>
@@ -332,13 +373,8 @@ export default function LandingPage() {
 
       {/* Footer */}
       <footer className="py-16 max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8 border-t border-border text-sm text-text-muted">
-        <div>
-          <h2 className="font-heading font-black text-xl text-text-main tracking-tighter">
-            ILYRIUM
-          </h2>
-          <p className="text-xs text-text-muted mt-1">
-            © 2026 Ilyrium Infrastructure Systems.
-          </p>
+        <div className="flex items-center gap-4">
+          <Logo className="w-8 h-8" showText={true} />
         </div>
         <div className="flex items-center gap-6 font-mono text-xs">
           <span className="flex items-center gap-2 text-emerald-400 font-semibold">

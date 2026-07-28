@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LayoutDashboard, Key, CreditCard, LogOut } from "lucide-react";
+import Logo from "@/components/layout/Logo";
 
 export const Sidebar = () => {
   const pathname = usePathname();
@@ -17,9 +18,9 @@ export const Sidebar = () => {
   return (
     <aside className="w-64 border-r border-border bg-surface/50 backdrop-blur-md h-screen fixed left-0 top-0 flex flex-col transition-all z-40">
       <div className="h-20 flex items-center px-6 border-b border-border">
-        <h1 className="font-heading font-black text-2xl tracking-tighter text-text-main">
-          ILYRIUM
-        </h1>
+        <Link href="/">
+          <Logo className="w-7 h-7" showText={true} />
+        </Link>
       </div>
       <nav className="flex-1 px-4 py-8 space-y-2">
         {links.map((link) => {
