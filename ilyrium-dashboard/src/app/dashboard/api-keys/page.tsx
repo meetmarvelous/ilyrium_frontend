@@ -113,7 +113,7 @@ export default function APIKeysPage() {
 
   return (
     <div className="space-y-8">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <h3 className="text-2xl font-heading font-bold text-text-main">API Keys</h3>
           <p className="text-text-muted mt-1">
@@ -122,7 +122,7 @@ export default function APIKeysPage() {
         </div>
         <button
           onClick={() => setShowCreateModal(true)}
-          className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-white px-5 py-2.5 rounded-xl font-medium transition-all shadow-[0_0_20px_rgba(79,70,229,0.3)]"
+          className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-white px-5 py-2.5 rounded-xl font-medium transition-all shadow-[0_0_20px_rgba(79,70,229,0.3)] w-full sm:w-auto justify-center"
         >
           <Plus size={18} />
           Create Secret Key
@@ -179,8 +179,8 @@ export default function APIKeysPage() {
           </p>
         </div>
       ) : (
-        <div className="bg-surface border border-border rounded-2xl overflow-hidden">
-          <table className="w-full text-left">
+        <div className="bg-surface border border-border rounded-2xl overflow-x-auto">
+          <table className="w-full text-left min-w-[800px]">
             <thead className="bg-surfaceHover/50 border-b border-border text-text-muted text-sm font-medium">
               <tr>
                 <th className="px-6 py-4">NAME</th>

@@ -3,10 +3,10 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Key, CreditCard, LogOut } from "lucide-react";
+import { LayoutDashboard, Key, CreditCard, LogOut, X } from "lucide-react";
 import Logo from "@/components/layout/Logo";
 
-export const Sidebar = () => {
+export const Sidebar = ({ isOpen, setIsOpen }: { isOpen?: boolean; setIsOpen?: (v: boolean) => void }) => {
   const pathname = usePathname();
 
   const links = [
@@ -16,12 +16,26 @@ export const Sidebar = () => {
   ];
 
   return (
-    <aside className="w-64 border-r border-border bg-surface/50 backdrop-blur-md h-screen fixed left-0 top-0 flex flex-col transition-all z-40">
-      <div className="h-20 flex items-center px-6 border-b border-border">
-        <Link href="/">
-          <Logo className="w-7 h-7" showText={true} />
-        </Link>
-      </div>
+    <>
+      {/* Mobile Backdrop */}
+      {isOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40 md:hidden backdrop-blur-sm" 
+          onClick={() => setIsOpen?.(false)}
+        />
+      )}
+      <aside className={`w-64 border-r border-border bg-surface/90 backdrop-blur-md h-screen fixed left-0 top-0 flex flex-col transition-transform duration-300 z-50 ${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}>
+        <div className="h-20 flex items-center justify-between px-6 border-b border-border">
+          <Link href="/" onClick={() => setIsOpen?.(false)}>
+            <Logo className="w-7 h-7" showText={true} />
+          </Link>
+          <button 
+            className="md:hidden text-text-muted hover:text-text-main"
+            onClick={() => setIsOpen?.(false)}
+          >
+            <X size={24} />
+          </button>
+        </div>
       <nav className="flex-1 px-4 py-8 space-y-2">
         {links.map((link) => {
           const isActive = pathname === link.href;
@@ -30,6 +44,7 @@ export const Sidebar = () => {
             <Link
               key={link.name}
               href={link.href}
+              onClick={() => setIsOpen?.(false)}
               className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 font-medium ${
                 isActive
                   ? "bg-primary text-white shadow-[0_0_20px_rgba(79,70,229,0.4)]"
@@ -48,6 +63,7 @@ export const Sidebar = () => {
           Disconnect
         </button>
       </div>
-    </aside>
+      </aside>
+    </>
   );
 };

@@ -10,7 +10,7 @@ const WalletMultiButtonDynamic = dynamic(
   { ssr: false }
 );
 
-export const TopNav = () => {
+export const TopNav = ({ onMenuClick }: { onMenuClick?: () => void }) => {
   const pathname = usePathname();
 
   const getPageTitle = () => {
@@ -21,8 +21,14 @@ export const TopNav = () => {
   };
 
   return (
-    <header className="h-20 border-b border-border bg-surface/80 backdrop-blur-md flex items-center justify-between px-8 sticky top-0 z-30">
-      <div>
+    <header className="h-20 border-b border-border bg-surface/80 backdrop-blur-md flex items-center justify-between px-4 md:px-8 sticky top-0 z-30">
+      <div className="flex items-center gap-4">
+        <button 
+          className="md:hidden p-2 text-text-muted hover:text-text-main transition-colors"
+          onClick={() => onMenuClick?.()}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+        </button>
         <h2 className="text-xl font-heading font-semibold text-text-main">
           {getPageTitle()}
         </h2>

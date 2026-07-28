@@ -271,34 +271,6 @@ export default function LandingPage() {
           </div>
         </div>
 
-        {/* Media Showcase Card 1: Clean & High Contrast */}
-        <div className="relative rounded-3xl overflow-hidden border border-border h-72 flex items-center justify-center group shadow-[0_0_50px_rgba(0,0,0,0.5)]">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:scale-105 transition-transform duration-700"
-          >
-            <source
-              src="https://firebasestorage.googleapis.com/v0/b/udreamms-platform-1.firebasestorage.app/o/New%20Video%20Luxor.mp4?alt=media&token=a5cd5a16-be9f-43df-bd1e-e702012fa88d"
-              type="video/mp4"
-            />
-          </video>
-          {/* Subtle vignette gradient for high contrast text readability */}
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-background/30" />
-          <div className="relative z-10 text-center max-w-xl px-6 space-y-3">
-            <span className="px-3 py-1 rounded-full bg-primary/20 border border-primary/30 text-primary text-xs font-mono font-semibold uppercase tracking-wider">
-              Real-Time Network Engine
-            </span>
-            <h3 className="text-3xl font-heading font-bold text-text-main">
-              Global Pulse Telemetry
-            </h3>
-            <p className="text-text-muted text-sm leading-relaxed">
-              Continuous latency benchmarking across all major regional Solana RPC clusters to route your traffic through the healthiest node.
-            </p>
-          </div>
-        </div>
       </section>
 
       {/* Architecture Showcase with Second Media Card */}
@@ -328,29 +300,29 @@ export default function LandingPage() {
             </div>
           </div>
 
-          {/* Media Showcase Card 2 */}
-          <div className="relative rounded-3xl overflow-hidden border border-border h-96 flex items-end p-8 group shadow-[0_0_50px_rgba(0,0,0,0.5)]">
+          {/* Media Showcase Card */}
+          <div className="relative rounded-3xl overflow-hidden border border-border h-96 flex items-end p-8 group shadow-[0_0_40px_rgba(0,0,0,0.1)]">
             <video
               autoPlay
               loop
               muted
               playsInline
-              className="absolute inset-0 w-full h-full object-cover opacity-75 group-hover:scale-105 transition-transform duration-700"
+              className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700"
             >
               <source
                 src="https://firebasestorage.googleapis.com/v0/b/udreamms-platform-1.firebasestorage.app/o/Video%20Preventa.mp4?alt=media&token=96330534-69e6-47e3-8359-444f9c1f85a5"
                 type="video/mp4"
               />
             </video>
-            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
             <div className="relative z-10 space-y-2">
               <span className="text-xs font-mono text-primary font-bold uppercase tracking-wider">
                 Network Visualizer
               </span>
-              <h4 className="text-xl font-heading font-bold text-text-main">
+              <h4 className="text-xl font-heading font-bold text-white">
                 Live Node Health Monitoring
               </h4>
-              <p className="text-xs text-text-muted">
+              <p className="text-xs text-white/70">
                 Sub-second health score evaluation across Helius, QuickNode, and Triton endpoints.
               </p>
             </div>
