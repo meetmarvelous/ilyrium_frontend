@@ -19,7 +19,7 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
 });
 
-import { WalletContextProvider } from "@/components/providers/WalletContextProvider";
+import { WalletContextProvider } from "@/components/WalletContextProvider";
 
 export const metadata: Metadata = {
   title: "Ilyrium Dashboard | Solana RPC Infrastructure",
@@ -37,7 +37,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${inter.variable} ${outfit.variable} ${jetbrainsMono.variable} font-body noise-overlay`}
+        className={`${inter.variable} ${outfit.variable} ${jetbrainsMono.variable} font-body bg-background text-text-main noise-overlay antialiased`}
       >
         <WalletContextProvider>
           {children}

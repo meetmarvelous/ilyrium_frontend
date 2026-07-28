@@ -10,16 +10,17 @@ const config: Config = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: "#2F40D1",
-          glow: "rgba(47, 64, 209, 0.15)",
+          DEFAULT: "#4F46E5",
+          glow: "rgba(79, 70, 229, 0.25)",
         },
-        background: "#FFFFFF",
-        surface: "#F9F9FB",
+        background: "#09090B",
+        surface: "#18181B",
+        surfaceHover: "#27272A",
         text: {
-          main: "#1A1A1A",
-          muted: "#666666",
+          main: "#FAFAFA",
+          muted: "#A1A1AA",
         },
-        border: "#EEEEEE",
+        border: "#27272A",
       },
       fontFamily: {
         heading: ["var(--font-outfit)"],
