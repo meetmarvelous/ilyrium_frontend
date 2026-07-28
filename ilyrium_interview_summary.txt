@@ -1,0 +1,24 @@
+Ilyrium Architecture Overview
+
+What is Ilyrium?
+At its core, Ilyrium is a proxy layer for Solana RPC requests. Instead of spending a ton of upfront capital to spin up our own bare-metal nodes right out of the gate, we decided to build a routing layer on top of existing top-tier providers like Helius and QuickNode. 
+
+By acting as the middleman, we can automatically route around degraded nodes and handle failovers behind the scenes. This gives our users essentially 100% uptime without them having to build complex fallback logic into their own apps.
+
+Our Backend Approach
+Since we're intercepting every single RPC call, we have to keep our latency overhead as close to zero as possible. We set a strict target of adding less than 3ms to any request. 
+
+Here is how we structured the stack to hit that goal:
+
+1. The Proxy Engine (Go)
+The main routing engine is written entirely in Go. We initially considered Rust for maximum hardware efficiency, but the slower development cycle didn't make sense for an MVP. Go gives us excellent built-in concurrency through Goroutines, meaning a single server can comfortably handle massive request spikes, and we can still iterate and ship features quickly. The Go engine handles load balancing, API signature checks, and failovers.
+
+2. Splitting the Data Layer (Redis + Postgres)
+If we checked a traditional relational database on every single request, the proxy would bottleneck instantly. To solve this, we split our data layer into a "hot" and "cold" path:
+- Hot Path (Redis): We use Redis strictly for in-memory, real-time lookups. When a request comes in, the Go engine hits Redis to validate the API key and check the current rate limit quota. It's incredibly fast and doesn't slow down the proxy.
+- Cold Path (Postgres): We use Postgres as our source of truth for user accounts and billing. The Go engine simply caches usage logs and asynchronously flushes them to Postgres in batches so the hot path is never blocked.
+
+3. Deployment and Settlement
+We're leaning on Vercel's edge network for deployment. This lets us geographically distribute the proxy so a user's request is handled by a node physically close to them. 
+
+For billing, we completely skipped fiat gateways like Stripe. Since our target audience is Web3 developers, we are settling subscriptions directly on-chain using a dedicated project wallet to accept native SOL and USDC. It cuts out the middleman fees and fits our users' existing workflows much better.
