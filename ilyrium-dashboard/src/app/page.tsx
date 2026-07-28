@@ -1,369 +1,353 @@
 "use client";
 
 import Link from "next/link";
-import { 
-  ArrowRight, 
-  Globe, 
-  Shield, 
-  Zap, 
-  Activity, 
-  Cpu, 
-  Lock, 
-  Network,
+import {
+  ArrowRight,
+  Shield,
+  Zap,
+  Activity,
   ChevronRight,
-  Database,
-  ExternalLink,
   CheckCircle2,
-  Menu
+  Menu,
+  X,
+  Server,
+  Layers,
+  Cpu,
 } from "lucide-react";
-import Logo from "@/components/layout/Logo";
 import { useEffect, useState } from "react";
 
 export default function LandingPage() {
-  const [liveLog, setLiveLog] = useState<{ id: string, region: string, status: string }[]>([]);
+  const [liveLog, setLiveLog] = useState<
+    { id: string; region: string; provider: string; latency: string }[]
+  >([]);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const regions = ["US-EAST", "EU-WEST", "ASIA-SOUTH", "LATAM-1"];
+    const providers = ["HELIUS", "QUICKNODE", "TRITON", "SOLANA-DEVNET"];
+
     const interval = setInterval(() => {
       const newLog = {
         id: Math.random().toString(36).substring(7),
         region: regions[Math.floor(Math.random() * regions.length)],
-        status: "DIVERTE-SUCCESS"
+        provider: providers[Math.floor(Math.random() * providers.length)],
+        latency: `${(2.0 + Math.random() * 1.5).toFixed(2)}ms`,
       };
-      setLiveLog(prev => [newLog, ...prev].slice(0, 3));
-    }, 4000);
+      setLiveLog((prev) => [newLog, ...prev].slice(0, 3));
+    }, 3000);
     return () => clearInterval(interval);
   }, []);
 
-  const partners = ["SOLANA", "PYTH", "JUPITER", "DRIFT", "MARGINFI", "KAMINO", "PHANTOM", "HELIUM", "METAPLEX", "HNT", "BONK", "WIF"];
-
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const partners = [
+    "SOLANA",
+    "HELIUS",
+    "QUICKNODE",
+    "JUPITER",
+    "PYTH",
+    "DRIFT",
+    "MARGINFI",
+    "KAMINO",
+    "PHANTOM",
+    "METAPLEX",
+  ];
 
   return (
-    <div className="min-h-screen bg-white relative overflow-hidden font-body selection:bg-primary/10">
-      {/* Refined Mobile Menu Overlay */}
-      <div className={`fixed inset-0 z-[100] transition-all duration-500 md:hidden ${isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
-        <div className="absolute inset-0 bg-white/98 backdrop-blur-xl" />
-        
+    <div className="min-h-screen bg-background text-text-main relative overflow-hidden font-body selection:bg-primary/20">
+      {/* Mobile Menu Overlay */}
+      <div
+        className={`fixed inset-0 z-[100] transition-all duration-500 md:hidden ${
+          isMobileMenuOpen
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
+        }`}
+      >
+        <div className="absolute inset-0 bg-background/95 backdrop-blur-xl" />
+
         <div className="relative h-full flex flex-col p-8">
-          <div className="flex justify-between items-center mb-12">
-            <Logo className="w-7 h-7" />
-            <button 
-              onClick={() => setIsMobileMenuOpen(false)} 
-              className="p-2 text-text-main hover:text-primary transition-colors"
+          <div className="flex justify-between items-center mb-12 border-b border-border pb-6">
+            <h1 className="font-heading font-black text-2xl tracking-tighter text-text-main">
+              ILYRIUM
+            </h1>
+            <button
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="p-2 text-text-muted hover:text-text-main transition-colors"
             >
-              <div className="w-8 h-8 flex flex-col items-center justify-center gap-1.5">
-                 <div className="w-6 h-[2px] bg-current rotate-45 translate-y-[4px]" />
-                 <div className="w-6 h-[2px] bg-current -rotate-45 -translate-y-[4px]" />
-              </div>
+              <X size={24} />
             </button>
           </div>
 
-          <div className="flex flex-col space-y-8">
+          <div className="flex flex-col space-y-6">
             {[
-              { label: "Solutions", href: "#solutions" },
-              { label: "Infrastructure", href: "#network" },
+              { label: "Features", href: "#features" },
               { label: "Comparison", href: "#comparison" },
+              { label: "Architecture", href: "#architecture" },
             ].map((link) => (
-              <Link 
+              <Link
                 key={link.label}
-                href={link.href} 
-                onClick={() => setIsMobileMenuOpen(false)} 
+                href={link.href}
+                onClick={() => setIsMobileMenuOpen(false)}
                 className="flex items-center justify-between group py-2"
               >
                 <span className="text-xl font-bold tracking-tight text-text-main group-hover:text-primary transition-colors">
                   {link.label}
                 </span>
-                <ChevronRight size={18} className="text-text-muted opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
+                <ChevronRight
+                  size={18}
+                  className="text-text-muted opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all"
+                />
               </Link>
             ))}
           </div>
 
-          <div className="mt-auto pt-10 border-t border-border/50">
-            <Link 
-              href="/dashboard" 
-              className="flex items-center justify-center gap-2 w-full py-4 rounded-2xl bg-text-main text-white font-bold tracking-tight text-sm mb-6"
+          <div className="mt-auto pt-10 border-t border-border">
+            <Link
+              href="/dashboard"
+              className="flex items-center justify-center gap-2 w-full py-4 rounded-2xl bg-primary text-white font-bold tracking-tight text-sm mb-6 shadow-[0_0_25px_rgba(79,70,229,0.4)]"
             >
               Launch Dashboard
               <ArrowRight size={16} />
             </Link>
-            <div className="flex justify-center gap-8 text-[10px] mono text-text-muted font-bold tracking-[0.2em] uppercase opacity-50">
-               <Link href="#">Twitter</Link>
-               <Link href="#">Discord</Link>
-            </div>
           </div>
         </div>
       </div>
+
+      {/* Header Navigation */}
+      <nav className="fixed top-0 left-0 right-0 h-20 z-50 bg-background/80 backdrop-blur-md border-b border-border">
+        <div className="max-w-6xl mx-auto px-6 h-full flex items-center justify-between">
+          <Link href="/" className="font-heading font-black text-2xl tracking-tighter text-text-main">
+            ILYRIUM
+          </Link>
+
+          {/* Desktop Nav */}
+          <div className="hidden md:flex items-center gap-8 text-sm font-medium text-text-muted">
+            <Link href="#features" className="hover:text-text-main transition-colors">
+              Features
+            </Link>
+            <Link href="#comparison" className="hover:text-text-main transition-colors">
+              Comparison
+            </Link>
+            <Link href="#architecture" className="hover:text-text-main transition-colors">
+              Architecture
+            </Link>
+            <Link
+              href="/dashboard"
+              className="px-6 py-2.5 rounded-xl bg-primary text-white hover:bg-primary/90 transition-all font-semibold shadow-[0_0_20px_rgba(79,70,229,0.3)] text-xs"
+            >
+              Launch App
+            </Link>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsMobileMenuOpen(true)}
+            className="md:hidden p-2 text-text-muted hover:text-text-main transition-colors"
+          >
+            <Menu size={24} />
+          </button>
+        </div>
+      </nav>
 
       {/* Hero Section */}
-      <section className="relative min-h-[85vh] flex flex-col items-center justify-center pt-16 px-6 overflow-hidden">
-        {/* ... (background remains same) */}
-        <div className="absolute inset-0 z-0">
-          <video 
-            autoPlay 
-            loop 
-            muted 
-            playsInline 
-            className="absolute inset-0 w-full h-full object-cover opacity-[0.35] scale-105"
-          >
-            <source src="https://firebasestorage.googleapis.com/v0/b/udreamms-platform-1.firebasestorage.app/o/New%20Video%20Luxor.mp4?alt=media&token=a5cd5a16-be9f-43df-bd1e-e702012fa88d" type="video/mp4" />
-          </video>
-          <div className="absolute inset-0 bg-white/60 backdrop-blur-[1px]" />
-          <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-white/40 to-white" />
-        </div>
+      <section className="relative min-h-[90vh] flex flex-col items-center justify-center pt-28 px-6 overflow-hidden">
+        {/* Background Ambient Glow */}
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[140px] pointer-events-none" />
 
-        <nav className="absolute top-0 left-0 right-0 h-20 z-50">
-           <div className="max-w-6xl mx-auto px-6 h-full flex items-center justify-between">
-              <Logo className="w-7 h-7" />
-              
-              {/* Desktop Nav */}
-              <div className="hidden md:flex items-center gap-10 text-[11px] font-black text-text-muted uppercase tracking-[0.2em]">
-                <Link href="#solutions" className="hover:text-primary transition-colors">Solutions</Link>
-                <Link href="#network" className="hover:text-primary transition-colors">Infrastructure</Link>
-                <Link href="#comparison" className="hover:text-primary transition-colors">Comparison</Link>
-                <Link href="/dashboard" className="px-6 py-2.5 rounded-2xl bg-text-main text-white hover:bg-primary transition-all normal-case tracking-normal text-xs">
-                  Dashboard
-                </Link>
-              </div>
-
-              {/* Mobile Hamburger */}
-              <button 
-                onClick={() => setIsMobileMenuOpen(true)}
-                className="md:hidden p-2 text-text-muted hover:text-primary transition-colors"
-              >
-                <Menu size={24} />
-              </button>
-           </div>
-        </nav>
-
-        <div className="max-w-4xl mx-auto text-center relative z-10 stagger-in">
-          <div className="inline-flex items-center gap-3 px-4 py-1 rounded-full bg-primary/5 border border-primary/10 mb-6">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-green opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-accent-green"></span>
+        <div className="max-w-4xl mx-auto text-center relative z-10 space-y-8">
+          <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-surface border border-border">
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400"></span>
             </span>
-            <span className="text-[10px] mono font-black text-primary tracking-[0.1em] uppercase">Enterprise RPC Infrastructure</span>
+            <span className="text-xs font-mono text-text-muted font-medium">
+              Indestructible Solana RPC Aggregator
+            </span>
           </div>
 
-          <h1 className="text-5xl lg:text-[92px] font-black leading-[1.05] tracking-tighter text-text-main mb-8">
-            Powering <br />
-            <span className="text-primary italic">High-Stakes</span> <br />
-            Onchain Apps.
+          <h1 className="text-5xl md:text-7xl font-heading font-black leading-[1.08] tracking-tighter text-text-main">
+            Unifying Solana Infrastructure <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-primary to-purple-400">
+              Into One Indestructible Network.
+            </span>
           </h1>
 
-          <p className="text-base lg:text-[17px] text-text-muted max-w-xl mx-auto font-medium leading-relaxed opacity-80 mb-10">
-            The global intelligence layer for the Solana ecosystem. 
-            Zero-config failover and sub-3ms latency built for the next billion.
+          <p className="text-base md:text-lg text-text-muted max-w-2xl mx-auto font-normal leading-relaxed">
+            Ilyrium is an intelligent proxy layer that aggregates top-tier RPC providers like Helius and QuickNode into a single high-availability endpoint. Zero-downtime failover and sub-3ms latency built for high-stakes Web3 applications.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
-            <Link href="/dashboard" className="btn-primary py-4 px-10 rounded-2xl group text-[13px] shadow-2xl shadow-primary/20">
-              Start Building
-              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link
+              href="/dashboard"
+              className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold py-4 px-8 rounded-xl shadow-[0_0_30px_rgba(79,70,229,0.4)] transition-all text-sm group"
+            >
+              Get Your Free API Key
+              <ArrowRight
+                size={18}
+                className="group-hover:translate-x-1 transition-transform"
+              />
             </Link>
-            <Link href="#solutions" className="btn-secondary py-4 px-10 rounded-2xl text-[13px]">
-              Docs
+            <Link
+              href="#architecture"
+              className="px-8 py-4 rounded-xl border border-border bg-surface hover:bg-surfaceHover text-text-muted hover:text-text-main font-semibold transition-all text-sm"
+            >
+              Explore Architecture
             </Link>
           </div>
 
-          <div className="mt-12 flex flex-wrap items-center justify-center gap-6 opacity-60">
-             {liveLog.map((log) => (
-                <div key={log.id} className="flex items-center gap-2 animate-fadeIn">
-                   <div className="w-1 h-1 rounded-full bg-accent-green" />
-                   <span className="text-[10px] mono font-bold uppercase tracking-widest">{log.region}</span>
-                   <span className="text-[10px] mono text-primary font-black tracking-tighter">{log.status}</span>
-                </div>
-             ))}
+          {/* Live Ping Ticker */}
+          <div className="pt-6 flex flex-wrap items-center justify-center gap-6 opacity-80">
+            {liveLog.map((log) => (
+              <div
+                key={log.id}
+                className="flex items-center gap-2 bg-surface/50 border border-border px-3 py-1.5 rounded-lg text-xs font-mono"
+              >
+                <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                <span className="text-text-muted">{log.region}</span>
+                <span className="text-primary font-bold">{log.provider}</span>
+                <span className="text-emerald-400 font-semibold">
+                  {log.latency}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Marquee Section - Balanced Padding */}
-      <div className="border-y border-border/40 py-10 overflow-hidden relative bg-white z-20 w-full">
-        <div className="flex animate-marquee-slow whitespace-nowrap gap-24 items-center mask-fade-edges opacity-30 grayscale hover:opacity-60 transition-opacity w-max">
-           {[...partners, ...partners, ...partners, ...partners].map((partner, i) => (
-              <span key={`${partner}-${i}`} className="text-xl font-black tracking-tighter uppercase">{partner}</span>
-           ))}
+      {/* Partner Marquee */}
+      <div className="border-y border-border py-8 overflow-hidden relative bg-surface/30">
+        <div className="flex whitespace-nowrap gap-16 items-center justify-center opacity-40 font-mono text-sm tracking-widest uppercase font-bold">
+          {partners.map((partner, i) => (
+            <span key={`${partner}-${i}`}>{partner}</span>
+          ))}
         </div>
       </div>
 
-      {/* Solutions Section - Tighter Spacing */}
-      <section id="solutions" className="py-16 lg:py-20 bg-white relative z-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-            <div className="lg:col-span-5 flex flex-col justify-center space-y-6">
-               <div>
-                  <p className="mono-label text-primary mb-3">Core Technology</p>
-                  <h2 className="text-4xl lg:text-5xl tracking-tighter leading-[1.05]">Designed for the <br /> <span className="text-primary italic font-black">Speed of Light.</span></h2>
-               </div>
-               <p className="text-base text-text-muted font-medium leading-relaxed opacity-80">
-                  Our intelligence layer optimizes every request, ensuring absolute minimal latency and maximal reliability.
-               </p>
-               <div className="space-y-3 pt-2">
-                  {["Smart Regional Diversion", "Priority Fee Optimization", "gRPC / Webhooks Support"].map((item) => (
-                    <div key={item} className="flex items-center gap-3 text-sm font-black text-text-main">
-                      <CheckCircle2 size={18} className="text-accent-green" />
-                      {item}
-                    </div>
-                  ))}
-               </div>
-            </div>
+      {/* Core Features */}
+      <section id="features" className="py-24 max-w-6xl mx-auto px-6 space-y-16">
+        <div className="text-center max-w-2xl mx-auto space-y-4">
+          <p className="text-xs font-mono text-primary font-bold uppercase tracking-wider">
+            Core Technology
+          </p>
+          <h2 className="text-4xl font-heading font-bold text-text-main tracking-tight">
+            Designed for Sub-Millisecond Speed & Absolute Uptime
+          </h2>
+          <p className="text-text-muted">
+            The Ilyrium routing engine abstracts provider failures, rate-limit blocks, and regional lag behind a unified endpoint.
+          </p>
+        </div>
 
-            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
-               <div className="bg-surface/50 rounded-[40px] p-8 lg:p-10 border border-border hover:border-primary/20 transition-all group">
-                  <div className="w-12 h-12 bg-white rounded-2xl premium-shadow flex items-center justify-center text-primary mb-6">
-                     <Zap size={24} />
-                  </div>
-                  <h3 className="text-2xl font-black mb-3 tracking-tight">Auto-Failover</h3>
-                  <p className="text-[14px] text-text-muted font-medium opacity-70 leading-relaxed">
-                     Real-time node health monitoring with automatic sub-100ms diversion.
-                  </p>
-               </div>
-               <div className="bg-text-main rounded-[40px] p-8 lg:p-10 text-white border border-white/5 premium-shadow relative overflow-hidden group">
-                  <div className="absolute top-0 right-0 p-8 opacity-10">
-                     <Shield size={120} />
-                  </div>
-                  <h3 className="text-2xl font-black mb-3 tracking-tight">Access Control</h3>
-                  <p className="text-[14px] text-white/50 font-medium leading-relaxed">
-                     Granular permissions and regional constraints for institutional keys.
-                  </p>
-               </div>
-               <div className="sm:col-span-2 bg-white rounded-[40px] p-1.5 border border-border premium-shadow relative overflow-hidden min-h-[320px]">
-                  <video 
-                     autoPlay 
-                     loop 
-                     muted 
-                     playsInline 
-                     className="absolute inset-0 w-full h-full object-cover rounded-[36px]"
-                  >
-                     <source src="https://firebasestorage.googleapis.com/v0/b/udreamms-platform-1.firebasestorage.app/o/Video%20Preventa.mp4?alt=media&token=96330534-69e6-47e3-8359-444f9c1f85a5" type="video/mp4" />
-                  </video>
-                  <div className="absolute bottom-6 left-6 bg-white/90 backdrop-blur-md px-5 py-3 rounded-2xl border border-border/50">
-                     <p className="text-[10px] font-black mono text-primary mb-1 tracking-widest uppercase">Analytics Engine</p>
-                     <p className="text-sm font-black text-text-main">Global Pulse Interface</p>
-                  </div>
-               </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="p-8 rounded-3xl bg-surface border border-border hover:border-primary/50 transition-all space-y-4 group">
+            <div className="p-3 bg-primary/10 text-primary rounded-2xl w-fit">
+              <Zap size={28} />
             </div>
+            <h3 className="text-xl font-heading font-bold text-text-main">
+              Sub-Second Failover
+            </h3>
+            <p className="text-text-muted text-sm leading-relaxed">
+              If a primary RPC provider returns an error or experiences a lag spike, Ilyrium transparently retries against fallback providers before returning to your app.
+            </p>
+          </div>
+
+          <div className="p-8 rounded-3xl bg-surface border border-border hover:border-primary/50 transition-all space-y-4 group">
+            <div className="p-3 bg-emerald-400/10 text-emerald-400 rounded-2xl w-fit">
+              <Activity size={28} />
+            </div>
+            <h3 className="text-xl font-heading font-bold text-text-main">
+              Sub-3ms Overhead
+            </h3>
+            <p className="text-text-muted text-sm leading-relaxed">
+              Written in high-concurrency Golang with in-memory Redis session caching. The proxy adds virtually zero latency to your hot path calls.
+            </p>
+          </div>
+
+          <div className="p-8 rounded-3xl bg-surface border border-border hover:border-primary/50 transition-all space-y-4 group">
+            <div className="p-3 bg-purple-400/10 text-purple-400 rounded-2xl w-fit">
+              <Shield size={28} />
+            </div>
+            <h3 className="text-xl font-heading font-bold text-text-main">
+              Web3 Native Billing
+            </h3>
+            <p className="text-text-muted text-sm leading-relaxed">
+              No credit cards or KYC required. Upgrade your request limits directly on-chain using native SOL transfers verified automatically by our backend.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Comparison Section - Tighter Spacing */}
-      <section id="comparison" className="py-16 lg:py-20 bg-surface/20">
-        <div className="max-w-6xl mx-auto px-6">
-           <div className="max-w-4xl mx-auto text-center mb-12">
-              <p className="mono-label text-primary mb-3">The Difference</p>
-              <h2 className="text-4xl lg:text-5xl tracking-tighter leading-tight">Standard RPC vs. <br /> <span className="text-primary italic">Ilyrium Engine.</span></h2>
-           </div>
-           
-           <div className="bg-white rounded-[48px] border border-border premium-shadow overflow-hidden max-w-4xl mx-auto">
-              <div className="grid grid-cols-2 lg:grid-cols-3">
-                 <div className="p-8 lg:p-10 border-r border-border bg-surface/10 hidden lg:block">
-                    <div className="h-10 mb-8" />
-                    <ul className="space-y-6 text-left text-[11px] font-black text-text-muted uppercase tracking-[0.2em]">
-                       <li>Global Routing</li>
-                       <li>Auto-Failover</li>
-                       <li>Batching Engine</li>
-                       <li>P99 Latency</li>
-                       <li>Security Layer</li>
-                    </ul>
-                 </div>
-                 <div className="p-8 lg:p-10 border-r border-border text-center">
-                    <p className="text-xs font-black text-text-muted mb-8 uppercase tracking-[0.2em]">Others</p>
-                    <ul className="space-y-6">
-                       {[false, false, true, "24ms", "Basic"].map((item, i) => (
-                          <li key={i} className="flex justify-center h-4 items-center">
-                             {typeof item === "boolean" ? (
-                                item ? <CheckCircle2 size={18} className="text-accent-green" /> : <div className="w-4 h-[2px] bg-border" />
-                             ) : (
-                                <span className="text-sm font-bold text-text-muted">{item}</span>
-                             )}
-                          </li>
-                       ))}
-                    </ul>
-                 </div>
-                 <div className="p-8 lg:p-10 bg-primary/[0.02] text-center relative overflow-hidden">
-                    <p className="text-xs font-black text-primary mb-8 uppercase tracking-[0.2em]">Ilyrium</p>
-                    <ul className="space-y-6 relative z-10">
-                       {[true, true, true, "3.2ms", "AES-256"].map((item, i) => (
-                          <li key={i} className="flex justify-center h-4 items-center">
-                             {typeof item === "boolean" ? (
-                                <CheckCircle2 size={18} className="text-primary" />
-                             ) : (
-                                <span className="text-sm font-black text-primary">{item}</span>
-                             )}
-                          </li>
-                       ))}
-                    </ul>
-                 </div>
-              </div>
-           </div>
+      {/* Comparison Section */}
+      <section id="comparison" className="py-20 bg-surface/30 border-y border-border">
+        <div className="max-w-5xl mx-auto px-6 space-y-12">
+          <div className="text-center max-w-2xl mx-auto space-y-4">
+            <p className="text-xs font-mono text-primary font-bold uppercase tracking-wider">
+              The Meta-RPC Difference
+            </p>
+            <h2 className="text-3xl font-heading font-bold text-text-main">
+              Single Provider vs. Ilyrium Layer
+            </h2>
+          </div>
+
+          <div className="bg-surface border border-border rounded-3xl overflow-hidden">
+            <table className="w-full text-left">
+              <thead className="bg-surfaceHover/50 border-b border-border text-text-muted text-xs font-mono uppercase">
+                <tr>
+                  <th className="px-6 py-4">FEATURE</th>
+                  <th className="px-6 py-4">SINGLE RPC PROVIDER</th>
+                  <th className="px-6 py-4 text-primary">ILYRIUM META-RPC</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-border text-sm font-medium">
+                <tr>
+                  <td className="px-6 py-4 text-text-main font-bold">Automatic Failover</td>
+                  <td className="px-6 py-4 text-text-muted">❌ Manual client code</td>
+                  <td className="px-6 py-4 text-emerald-400 font-semibold flex items-center gap-2">
+                    <CheckCircle2 size={16} /> Transparent Sub-100ms
+                  </td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-4 text-text-main font-bold">Single Point of Failure</td>
+                  <td className="px-6 py-4 text-text-muted">❌ Vulnerable to outages</td>
+                  <td className="px-6 py-4 text-emerald-400 font-semibold flex items-center gap-2">
+                    <CheckCircle2 size={16} /> 100% Provider Agnostic
+                  </td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-4 text-text-main font-bold">Billing & Settlement</td>
+                  <td className="px-6 py-4 text-text-muted">Credit Card / KYC</td>
+                  <td className="px-6 py-4 text-emerald-400 font-semibold flex items-center gap-2">
+                    <CheckCircle2 size={16} /> Native SOL On-Chain
+                  </td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-4 text-text-main font-bold">Proxy Overhead</td>
+                  <td className="px-6 py-4 text-text-muted">Direct</td>
+                  <td className="px-6 py-4 text-primary font-semibold flex items-center gap-2">
+                    <CheckCircle2 size={16} /> &lt; 3.0ms Latency
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </section>
 
-      {/* Global Stats - Tighter Spacing */}
-      <section className="py-16 lg:py-20">
-        <div className="max-w-6xl mx-auto px-6">
-           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
-              <div className="space-y-2">
-                 <p className="text-5xl lg:text-7xl font-black tracking-tighter text-primary">2.4M+</p>
-                 <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.3em]">Transactions</p>
-              </div>
-              <div className="space-y-2">
-                 <p className="text-5xl lg:text-7xl font-black tracking-tighter text-text-main">3.2ms</p>
-                 <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.3em]">Edge Latency</p>
-              </div>
-              <div className="space-y-2">
-                 <p className="text-5xl lg:text-7xl font-black tracking-tighter text-accent-blue">100%</p>
-                 <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.3em]">Redundancy</p>
-              </div>
-           </div>
+      {/* Footer */}
+      <footer className="py-16 max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8 border-t border-border text-sm text-text-muted">
+        <div>
+          <h2 className="font-heading font-black text-xl text-text-main tracking-tighter">
+            ILYRIUM
+          </h2>
+          <p className="text-xs text-text-muted mt-1">
+            © 2026 Ilyrium Infrastructure Systems.
+          </p>
         </div>
-      </section>
-
-      <footer className="py-20 lg:py-24 px-6 border-t border-border bg-white relative z-20">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-start gap-16 mb-20">
-            <div className="space-y-8">
-              <Logo className="w-7 h-7" />
-              <p className="text-[13px] text-text-muted max-w-xs font-medium leading-relaxed opacity-70">
-                The premier RPC aggregation layer for the Solana blockchain.
-              </p>
-            </div>
-            
-            <div className="grid grid-cols-2 lg:grid-cols-3 gap-16 lg:gap-20">
-              <div className="space-y-5">
-                 <h4 className="text-[11px] font-black uppercase tracking-[0.3em] text-text-main opacity-40">Platform</h4>
-                 <ul className="text-[13px] text-text-muted space-y-3 font-bold">
-                    <li><Link href="/dashboard" className="hover:text-primary transition-colors">Dashboard</Link></li>
-                    <li><Link href="/dashboard/nodes" className="hover:text-primary transition-colors">Nodes</Link></li>
-                    <li><Link href="/dashboard/billing" className="hover:text-primary transition-colors">Pricing</Link></li>
-                 </ul>
-              </div>
-              <div className="space-y-5">
-                 <h4 className="text-[11px] font-black uppercase tracking-[0.3em] text-text-main opacity-40">Docs</h4>
-                 <ul className="text-[13px] text-text-muted space-y-3 font-bold">
-                    <li><Link href="#" className="hover:text-primary transition-colors">API Reference</Link></li>
-                    <li><Link href="#" className="hover:text-primary transition-colors">CLI Tool</Link></li>
-                 </ul>
-              </div>
-              <div className="space-y-5">
-                 <h4 className="text-[11px] font-black uppercase tracking-[0.3em] text-text-main opacity-40">Connect</h4>
-                 <ul className="text-[13px] text-text-muted space-y-3 font-bold">
-                    <li><Link href="#" className="hover:text-primary transition-colors">Twitter</Link></li>
-                    <li><Link href="#" className="hover:text-primary transition-colors">Discord</Link></li>
-                 </ul>
-              </div>
-            </div>
-          </div>
-          
-          <div className="pt-10 border-t border-border flex flex-col md:flex-row justify-between items-center gap-10">
-             <p className="text-[10px] mono text-text-muted font-bold tracking-[0.3em] opacity-40 uppercase">© 2024 ILYRIUM INFRASTRUCTURE SYSTEMS.</p>
-             <div className="flex items-center gap-8 text-[10px] mono text-text-muted font-bold tracking-widest opacity-60">
-                <span className="flex items-center gap-2 font-black"><div className="w-1.5 h-1.5 rounded-full bg-accent-green" /> SYSTEMS ACTIVE</span>
-                <span>v1.4.2</span>
-             </div>
-          </div>
+        <div className="flex items-center gap-6 font-mono text-xs">
+          <span className="flex items-center gap-2 text-emerald-400 font-semibold">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            SYSTEMS OPERATIONAL
+          </span>
+          <Link href="/dashboard" className="hover:text-text-main transition-colors">
+            Dashboard
+          </Link>
         </div>
       </footer>
     </div>
