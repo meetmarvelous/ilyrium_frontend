@@ -10,6 +10,8 @@ import {
   CheckCircle2,
   Menu,
   X,
+  Server,
+  Cpu,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import Logo from "@/components/layout/Logo";
@@ -143,27 +145,10 @@ export default function LandingPage() {
         </div>
       </nav>
 
-      {/* Hero Section with Live Background Animation */}
-      <section className="relative min-h-[92vh] flex flex-col items-center justify-center pt-28 px-6 overflow-hidden">
-        {/* Background Live Video Animation */}
-        <div className="absolute inset-0 z-0">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover opacity-[0.25] scale-105"
-          >
-            <source
-              src="https://firebasestorage.googleapis.com/v0/b/udreamms-platform-1.firebasestorage.app/o/New%20Video%20Luxor.mp4?alt=media&token=a5cd5a16-be9f-43df-bd1e-e702012fa88d"
-              type="video/mp4"
-            />
-          </video>
-          <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/80 to-background" />
-        </div>
-
-        {/* Background Ambient Glow */}
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/15 rounded-full blur-[140px] pointer-events-none" />
+      {/* Hero Section (Clean Dark Canvas - Video Removed for Maximum Readability) */}
+      <section className="relative min-h-[85vh] flex flex-col items-center justify-center pt-28 px-6 overflow-hidden">
+        {/* Subtle Radial Glow Effect */}
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-primary/10 rounded-full blur-[150px] pointer-events-none" />
 
         <div className="max-w-4xl mx-auto text-center relative z-10 space-y-8">
           <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-surface border border-border">
@@ -234,7 +219,7 @@ export default function LandingPage() {
         </div>
       </div>
 
-      {/* Core Features Section with Secondary Media */}
+      {/* Core Features Section */}
       <section id="features" className="py-24 max-w-6xl mx-auto px-6 space-y-16">
         <div className="text-center max-w-2xl mx-auto space-y-4">
           <p className="text-xs font-mono text-primary font-bold uppercase tracking-wider">
@@ -286,31 +271,89 @@ export default function LandingPage() {
           </div>
         </div>
 
-        {/* Feature Media Banner */}
-        <div className="relative rounded-3xl overflow-hidden border border-border h-80 flex items-center justify-center">
+        {/* Media Showcase Card 1: Clean & High Contrast */}
+        <div className="relative rounded-3xl overflow-hidden border border-border h-72 flex items-center justify-center group shadow-[0_0_50px_rgba(0,0,0,0.5)]">
           <video
             autoPlay
             loop
             muted
             playsInline
-            className="absolute inset-0 w-full h-full object-cover opacity-40"
+            className="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:scale-105 transition-transform duration-700"
           >
             <source
-              src="https://firebasestorage.googleapis.com/v0/b/udreamms-platform-1.firebasestorage.app/o/Video%20Preventa.mp4?alt=media&token=96330534-69e6-47e3-8359-444f9c1f85a5"
+              src="https://firebasestorage.googleapis.com/v0/b/udreamms-platform-1.firebasestorage.app/o/New%20Video%20Luxor.mp4?alt=media&token=a5cd5a16-be9f-43df-bd1e-e702012fa88d"
               type="video/mp4"
             />
           </video>
-          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-background" />
-          <div className="relative z-10 text-center max-w-lg px-6">
-            <p className="text-xs font-mono text-primary font-bold uppercase tracking-wider mb-2">
-              Real-Time Global Network
-            </p>
-            <h3 className="text-2xl font-heading font-bold text-text-main mb-2">
-              Global Pulse Analytics Engine
+          {/* Subtle vignette gradient for high contrast text readability */}
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-background/30" />
+          <div className="relative z-10 text-center max-w-xl px-6 space-y-3">
+            <span className="px-3 py-1 rounded-full bg-primary/20 border border-primary/30 text-primary text-xs font-mono font-semibold uppercase tracking-wider">
+              Real-Time Network Engine
+            </span>
+            <h3 className="text-3xl font-heading font-bold text-text-main">
+              Global Pulse Telemetry
             </h3>
-            <p className="text-text-muted text-sm">
-              Continuous latency benchmarking across all major regional RPC clusters.
+            <p className="text-text-muted text-sm leading-relaxed">
+              Continuous latency benchmarking across all major regional Solana RPC clusters to route your traffic through the healthiest node.
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Architecture Showcase with Second Media Card */}
+      <section id="architecture" className="py-20 max-w-6xl mx-auto px-6 space-y-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="space-y-6">
+            <p className="text-xs font-mono text-primary font-bold uppercase tracking-wider">
+              System Architecture
+            </p>
+            <h2 className="text-4xl font-heading font-bold text-text-main tracking-tight leading-tight">
+              High-Concurrency Go Engine Meets In-Memory Caching
+            </h2>
+            <p className="text-text-muted text-base leading-relaxed">
+              Requests pass through a zero-allocation Go proxy. API key verification and rate-limiting happen instantly in Redis, while usage metrics are flushed asynchronously to PostgreSQL without blocking client responses.
+            </p>
+            <div className="space-y-3">
+              {[
+                "Stateless Go Routing Nodes for Infinite Scaling",
+                "Redis In-Memory Hot Path Authentication",
+                "Asynchronous PostgreSQL Batch Usage Logging",
+              ].map((item) => (
+                <div key={item} className="flex items-center gap-3 text-sm font-semibold text-text-main">
+                  <CheckCircle2 size={18} className="text-emerald-400 shrink-0" />
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Media Showcase Card 2 */}
+          <div className="relative rounded-3xl overflow-hidden border border-border h-96 flex items-end p-8 group shadow-[0_0_50px_rgba(0,0,0,0.5)]">
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover opacity-75 group-hover:scale-105 transition-transform duration-700"
+            >
+              <source
+                src="https://firebasestorage.googleapis.com/v0/b/udreamms-platform-1.firebasestorage.app/o/Video%20Preventa.mp4?alt=media&token=96330534-69e6-47e3-8359-444f9c1f85a5"
+                type="video/mp4"
+              />
+            </video>
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+            <div className="relative z-10 space-y-2">
+              <span className="text-xs font-mono text-primary font-bold uppercase tracking-wider">
+                Network Visualizer
+              </span>
+              <h4 className="text-xl font-heading font-bold text-text-main">
+                Live Node Health Monitoring
+              </h4>
+              <p className="text-xs text-text-muted">
+                Sub-second health score evaluation across Helius, QuickNode, and Triton endpoints.
+              </p>
+            </div>
           </div>
         </div>
       </section>
