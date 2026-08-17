@@ -248,7 +248,7 @@ export default function APIKeysPage() {
                     {item.status === "active" && (
                       <button
                         onClick={() => handleRevoke(item.id)}
-                        className="text-text-muted hover:text-red-400 p-2 rounded-lg hover:bg-red-400/10 transition-colors opacity-0 group-hover:opacity-100"
+                        className="text-text-muted hover:text-red-400 p-2 rounded-lg hover:bg-red-400/10 transition-colors"
                         title="Revoke key"
                       >
                         <Trash2 size={18} />

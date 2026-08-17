@@ -3,11 +3,13 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useWallet } from "@solana/wallet-adapter-react";
 import { LayoutDashboard, Key, CreditCard, LogOut, X } from "lucide-react";
 import Logo from "@/components/layout/Logo";
 
 export const Sidebar = ({ isOpen, setIsOpen }: { isOpen?: boolean; setIsOpen?: (v: boolean) => void }) => {
   const pathname = usePathname();
+  const { disconnect, connected } = useWallet();
 
   const links = [
     { name: "Overview", href: "/dashboard", icon: LayoutDashboard },
@@ -57,12 +59,17 @@ export const Sidebar = ({ isOpen, setIsOpen }: { isOpen?: boolean; setIsOpen?: (
           );
         })}
       </nav>
-      <div className="p-4 border-t border-border">
-        <button className="flex items-center gap-3 w-full px-4 py-3 rounded-xl text-text-muted hover:text-red-400 hover:bg-red-400/10 transition-all font-medium">
-          <LogOut size={20} />
-          Disconnect
-        </button>
-      </div>
+      {connected && (
+        <div className="p-4 border-t border-border">
+          <button 
+            onClick={() => disconnect()}
+            className="flex items-center gap-3 w-full px-4 py-3 rounded-xl text-text-muted hover:text-red-400 hover:bg-red-400/10 transition-all font-medium"
+          >
+            <LogOut size={20} />
+            Disconnect
+          </button>
+        </div>
+      )}
       </aside>
     </>
   );
