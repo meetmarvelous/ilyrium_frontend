@@ -35,3 +35,4 @@ export const WalletContextProvider: FC<Props> = ({ children }) => {
         </ConnectionProvider>
     );
 };
+

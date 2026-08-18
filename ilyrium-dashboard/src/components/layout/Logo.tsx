@@ -1,6 +1,11 @@
 import React from "react";
 
-export default function Logo({ className = "w-8 h-8", showText = true }: { className?: string, showText?: boolean }) {
+interface LogoProps {
+  className?: string;
+  showText?: boolean;
+}
+
+export default function Logo({ className = "w-8 h-8", showText = true }: LogoProps) {
   return (
     <div className="flex items-center gap-3 group cursor-pointer">
       <div className={`${className} flex items-center justify-center transition-transform duration-500 group-hover:scale-110`}>

@@ -1,9 +1,17 @@
 "use client";
 
 import { useWallet } from "@solana/wallet-adapter-react";
-import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+import dynamic from "next/dynamic";
 import { Wallet } from "lucide-react";
 import { useEffect, useState } from "react";
+
+const WalletMultiButtonDynamic = dynamic(
+  () =>
+    import("@solana/wallet-adapter-react-ui").then(
+      (mod: any) => mod.WalletMultiButton || mod.default?.WalletMultiButton || mod.default
+    ),
+  { ssr: false }
+) as React.ComponentType<{ className?: string; children?: React.ReactNode }>;
 
 export default function WalletConnect() {
   const { publicKey, connected } = useWallet();
@@ -17,12 +25,12 @@ export default function WalletConnect() {
 
   return (
     <div className="wallet-adapter-custom">
-      <WalletMultiButton className="!bg-primary !rounded-xl !h-11 !px-6 !font-heading !font-bold !text-sm !transition-all hover:!shadow-lg hover:!shadow-primary/20 !border-none">
+      <WalletMultiButtonDynamic className="!bg-primary !rounded-xl !h-11 !px-6 !font-heading !font-bold !text-sm !transition-all hover:!shadow-lg hover:!shadow-primary/20 !border-none">
         <div className="flex items-center gap-2">
           {!connected && <Wallet size={16} />}
           <span>{connected ? `${publicKey?.toBase58().slice(0, 4)}...${publicKey?.toBase58().slice(-4)}` : "Connect Wallet"}</span>
         </div>
-      </WalletMultiButton>
+      </WalletMultiButtonDynamic>
       
       <style jsx global>{`
         .wallet-adapter-button-trigger {

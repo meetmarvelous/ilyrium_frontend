@@ -6,9 +6,12 @@ import { usePathname } from "next/navigation";
 
 // WalletMultiButton must be dynamically imported with ssr: false to avoid hydration mismatch
 const WalletMultiButtonDynamic = dynamic(
-  async () => (await import("@solana/wallet-adapter-react-ui")).WalletMultiButton,
+  () =>
+    import("@solana/wallet-adapter-react-ui").then(
+      (mod: any) => mod.WalletMultiButton || mod.default?.WalletMultiButton || mod.default
+    ),
   { ssr: false }
-);
+) as React.ComponentType<{ className?: string }>;
 
 export const TopNav = ({ onMenuClick }: { onMenuClick?: () => void }) => {
   const pathname = usePathname();
